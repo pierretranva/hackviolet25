@@ -1,6 +1,7 @@
 # llm_integration.py
 
 import logging
+import re
 from typing import Union, IO
 import PyPDF2
 # Import the Ollama API client.
@@ -160,25 +161,38 @@ class LLMIntegration:
         updated_resume = self.call_llm(prompt)
         return updated_resume
     
-    def string_to_tex(self, resume_as_string: str) -> str:
-        file_path = "jakes.tex"
-        with open(file_path, "r") as file:
-            content = file.read()
-
+    def string_to_markdown(self, resume_as_string: str, output_path: str = "UpdatedResume.md") -> str:
+        """
+        Converts a resume string into markdown format using the LLM, writes the markdown to a file,
+        and returns the markdown string.
+        
+        Args:
+            resume_as_string (str): The resume in plain text format.
+            output_path (str): The file path where the markdown output will be saved.
+            
+        Returns:
+            str: The resume converted to markdown format.
+        """
         prompt = (
             "{resume_string}\n\n"
-            "Please convert the resume to markdown format only"
+            "Please convert the resume to markdown format only. "
             "Do not provide any additional information or formatting."
         )
-        prompt = prompt.format(jakes_resume=content, resume_string=resume_as_string)
-
-        latex_resume =self.call_llm(prompt)
-        return latex_resume
-
-            
+        prompt = prompt.format(resume_string=resume_as_string)
+        markdown_resume = self.call_llm(prompt)
+        markdown_resume = re.sub(r"<think>.*?</think>", "", markdown_resume, flags=re.DOTALL)
         
+        try:
+            with open(output_path, "w", encoding="utf-8") as f:
+                f.write(markdown_resume)
+            logging.info(f"Markdown resume written to {output_path}")
+        except Exception as e:
+            logging.error(f"Error writing markdown file: {e}")
+            raise LLMIntegrationError(f"Error writing markdown file: {e}")
+            
+        return markdown_resume
 
-# Example usage for testing purposes
+
 if __name__ == "__main__":
     # Sample job description
     sample_job_description = (
@@ -186,18 +200,22 @@ if __name__ == "__main__":
         "experience with Python, FastAPI, and cloud services. The candidate should have a strong understanding "
         "of microservices architecture and scalable system design."
     )
+    # Specify the path to the candidate's resume PDF
     sample_resume_pdf = "Resume.pdf"
+    # Specify the output markdown file path
+    output_markdown_file = "UpdatedResume.md"
+    
     # Initialize the LLM integration instance
-    llm_integration = LLMIntegration(model="deepseek-r1:7b")  # Replace with your actual Ollama model name
+    llm_integration = LLMIntegration(model="deepseek-r1:1.5b")  # Replace with your actual Ollama model name
 
     try:
-        # Get the transformed resume by passing the experience text file
+        # Get the updated resume from the PDF based on the job description
         modified_resume = llm_integration.transform_resume(sample_job_description, sample_resume_pdf)
         print("Modified Resume:\n")
-
         print(modified_resume)
-        create_tex = llm_integration.string_to_tex(modified_resume)
-        print(create_tex)
-
+        
+        # Convert the updated resume to markdown format and write to file
+        markdown_resume = llm_integration.string_to_markdown(modified_resume, output_markdown_file)
+        print(f"Markdown resume written to: {output_markdown_file}")
     except LLMIntegrationError as error:
         print(f"An error occurred during LLM integration: {error}")
