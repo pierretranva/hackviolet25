@@ -2,3 +2,5 @@ fastapi==0.109.0
 uvicorn==0.27.0
 pymongo==4.6.1
 python-dotenv==1.0.0
+beautifulsoup4==4.12.3
+selenium==4.28.1
