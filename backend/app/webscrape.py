@@ -80,9 +80,3 @@ class WebScrape:
 
         return job_details_text
 
-if __name__ == "__main__":
-    job_url = ("https://www.linkedin.com/jobs/view/4140110401/"
-               "?alternateChannel=search&refId=Sd48MmY2YFTvaB19EbuEwg%3D%3D"
-               "&trackingId=EFDjWksO6ZI7bETjJkmGKA%3D%3D")
-    scraper = WebScrape(job_url)
-    scraper.scrape()
