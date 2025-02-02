@@ -1,6 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile
 from pydantic import BaseModel
 from typing import List
+
+from fastapi.middleware.cors import CORSMiddleware
 
 from ollama.llm_integration import LLMIntegration
 from webscrape import WebScrape
@@ -9,6 +11,14 @@ from webscrape import WebScrape
 import uvicorn
 
 app = FastAPI(title="PenguAPI")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class JobAddPayload(BaseModel):
     company_name: str
@@ -22,7 +32,10 @@ class AddResumeAndOtherInfoPayload(BaseModel):
 
 class EditResumePayload(BaseModel):
     job_mongo_id: str
-    personal_info_mongo_id: str
+    # personal_info_mongo_id: str
+
+class UploadDescriptionPayload(BaseModel):
+    description: str
 
 
 def process_job_request(company_name: str, date: str, url: str, chips: List[str]):
@@ -83,7 +96,34 @@ def add_personal_info(request: AddResumeAndOtherInfoPayload):
         return {"personal_info_mongo_id": mongo_id}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.post("/upload-pdf")
+async def upload_pdf(file: UploadFile = File(...)):
+    try:
+        file_data = await file.read()
+        # print(file_data)
+        file_id = "temp12345"
+        # file_id = fs.put(file_data, filename=file.filename, content_type=file.content_type)
+        return {"message": "File uploaded successfully!", "file_id": str(file_id)}
+    except Exception as e:
+        return {"error": str(e)}
 
+@app.post("/upload-description")
+async def upload_description(description: UploadDescriptionPayload ):
+    try:
+        print(description.description)
+        return {"message": "Description uploaded successfully!"}
+    except Exception as e:
+        return {"error": str(e)}
+    
+@app.get("/get-description")
+def get_description():
+    try:
+        # get from db
+        return {"description": "This is a job description"}
+    except Exception as e:
+        return {"error": str(e)}
+    
 @app.post("/edit-resume")
 def edit_resume(request: EditResumePayload):
     try:
