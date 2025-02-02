@@ -1,68 +1,65 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const UploadPDF = () => {
 	const [file, setFile] = useState(null);
 	const [fileId, setFileId] = useState(null); // Store uploaded file ID
+    const [desc, setDesc] = useState("");
 
+    useEffect(() => {
+        axios.get("http://localhost:8000/get-description").then((response) => {
+            setDesc(response.data.description);
+        });
+    }, []);
 	// Handle file selection
 	const handleFileChange = (e) => {
 		setFile(e.target.files[0]);
 	};
 
     const saveDesc = async () => {
-        const desc = document.querySelector("textarea").value;
-        console.log(desc);
+        // console.log(desc);
         try {
-            const response = await fetch("http://localhost:8000/saveDesc", {
-                method: "POST",
+            const response = await axios.post("http://localhost:8000/upload-description", 
+                {description: desc}
+            , {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ desc }),
             });
 
-            const result = await response.json();
-
-            if (response.ok) {
+            if (response.status === 200) {
                 alert("Description saved successfully!");
             } else {
-                alert("Error: " + result.error);
+                alert("Error: " + response.data.error);
             }
         } catch (error) {
             console.error("Error saving description:", error);
             alert("Failed to save description.");
         }
-    }
+    };
 	// Handle file upload
-	const handleUpload = async () => {
-		if (!file) {
-			alert("Please select a PDF file.");
-			return;
-		}
+    const handleUpload = async () => {
+        if (!file) {
+            alert("Please select a PDF file.");
+            return;
+        }
 
-		const formData = new FormData();
-		formData.append("file", file);
+        const formData = new FormData();
+        formData.append("file", file);
 
-		try {
-			const response = await fetch("http://localhost:8000/upload", {
-				method: "POST",
-				body: formData,
-			});
+        try {
+            const response = await axios.post("http://localhost:8000/upload-pdf", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
 
-			const result = await response.json();
-
-			if (response.ok) {
-				setFileId(result.file_id); // Save file ID for download
-				alert("File uploaded successfully!");
-			} else {
-				alert("Error: " + result.error);
-			}
-		} catch (error) {
-			console.error("Error uploading file:", error);
-			alert("Failed to upload file.");
-		}
-	};
-
+            alert("File uploaded successfully!");
+        } catch (error) {
+            console.error("Error uploading file:", error);
+            alert("Failed to upload file.");
+        }
+    };
 	// Handle file download
 	const handleDownload = async () => {
 		if (!fileId) {
@@ -104,6 +101,8 @@ const UploadPDF = () => {
                     <div className="flex flex-col items-center justify-center">
                         <textarea
                             className="mb-4 p-2 border border-gray-300 rounded h-48 w-full"
+                            value={desc}
+                            onChange={(e) => setDesc(e.target.value)}
                         />
 
                         <button
