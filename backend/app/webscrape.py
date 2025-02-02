@@ -109,7 +109,7 @@ class WebScrape:
                 print("No <p> element with dir='ltr' found inside div.mt4.")
         else:
             print("No div.mt4 found in the document.")
-            
+
         return job_details_text
     
     def indeed_ws(self):
