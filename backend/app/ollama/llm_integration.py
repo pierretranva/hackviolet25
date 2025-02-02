@@ -15,15 +15,6 @@ class LLMIntegration:
         self.model = model
         self.timeout = timeout  
 
-    @staticmethod
-    def read_text_file(file_path: str) -> str:
-        #Reads text from a file.
-        try:
-            with open(file_path, "r") as f:
-                return f.read()
-        except Exception as e:
-            logging.error(f"Error reading text file: {e}")
-            raise LLMIntegrationError(f"Error reading text file: {e}")
 
     @staticmethod
     def extract_text_from_pdf(pdf_input: Union[str, IO]) -> str:
@@ -80,8 +71,10 @@ class LLMIntegration:
                 prompt=prompt,
             )
             # The Ollama API response contains the generated text in the 'response' field
-            if isinstance(response, dict) and 'response' in response:
-                return response['response']
+            if hasattr(response, "response"):
+                return response.response
+            # if isinstance(response, dict) and 'response' in response:
+            #     return response['response']
             else:
                 logging.error(f"Invalid response from Ollama API: {response}")
                 raise LLMIntegrationError("Invalid response from Ollama API: missing 'response' field.")
@@ -99,10 +92,19 @@ class LLMIntegration:
     def string_to_markdown(self, resume_as_string: str, output_path: str = "UpdatedResume.md") -> str:
         #Converts a resume string into markdown format using the LLM, writes the markdown to a file, 
         #and returns the markdown string.
+        # prompt = (
+        #     "{resume_string}\n\n"
+        #     "Please convert the resume to markdown format only. "
+        #     "Do not provide any additional information or formatting."
+        #     "Surround the markdown code resume with (<RESUME>) to indicate code block."
+        # )
         prompt = (
-            "{resume_string}\n\n"
-            "Please convert the resume to markdown format only. "
-            "Do not provide any additional information or formatting."
+"Convert the following resume into Markdown format. Return only the Markdown code, without any explanations or additional text. Wrap the output strictly between the delimiters `[[START_MARKDOWN]]` and `[[END_MARKDOWN]]`."
+"Resume:"
+"{resume_string}"
+
+         "Resume:"
+        "{resume_string}"
         )
         prompt = prompt.format(resume_string=resume_as_string)
         markdown_resume = self.call_llm(prompt)
@@ -119,16 +121,16 @@ class LLMIntegration:
         return markdown_resume
     
 
-    def short_job_description(self, job_description: str) -> str:
-        #Constructs a prompt for the LLM based on job details and the candidate's extracted resume text.
-        prompt_template = (
-            "You are a proffessional job description shortener.\n You have to shorten this job description into, "
-            "5 key bullet points without altering any of the details of the listing.\n Do not have the 5 bullet points "
-            "have sub bullet points. Don't go over more than 5 sentences."
-            "{job_description}\n\n"
-        )
-        prompt = prompt_template.format(job_description=job_description)
-        return prompt
+    # def short_job_description(self, job_description: str) -> str:
+    #     #Constructs a prompt for the LLM based on job details and the candidate's extracted resume text.
+    #     prompt_template = (
+    #         "You are a proffessional job description shortener.\n You have to shorten this job description into, "
+    #         "5 key bullet points without altering any of the details of the listing.\n Do not have the 5 bullet points "
+    #         "have sub bullet points. Don't go over more than 5 sentences."
+    #         "{job_description}\n\n"
+    #     )
+    #     prompt = prompt_template.format(job_description=job_description)
+    #     return prompt
 
 
 
@@ -145,7 +147,7 @@ if __name__ == "__main__":
     output_markdown_file = "UpdatedResume.md"
     
     # Initialize the LLM integration instance
-    llm_integration = LLMIntegration(model="deepseek-r1:1.5b")  # Replace with your actual Ollama model name
+    llm_integration = LLMIntegration(model="deepseek-r1:7b")  # Replace with your actual Ollama model name
 
     try:
          # Get the updated resume from the PDF based on the job description
@@ -160,15 +162,17 @@ if __name__ == "__main__":
          print(f"An error occurred during LLM integration: {error}")
 
     # ----- Test for short_job_description -----
-    try:
-        print("\n=== Testing short_job_description ===")
-        # Generate the prompt for the short job description
-        short_desc_prompt = llm_integration.short_job_description(sample_job_description)
+    # try:
+    #     # print("\n=== Testing short_job_description ===")
+    #     # Generate the prompt for the short job description
+    #     # short_desc_prompt = llm_integration.short_job_description(sample_job_description)
         
-        # Optionally, call the LLM to get the shortened job description
-        shortened_job_description = llm_integration.call_llm(short_desc_prompt)
-        print("\nShortened Job Description Output:")
-        print(shortened_job_description)
+    #     # Optionally, call the LLM to get the shortened job description
+    #     # shortened_job_description = llm_integration.call_llm(short_desc_prompt)
+    #     # print("\nShortened Job Description Output:")
+    #     # print(shortened_job_description)
         
-    except LLMIntegrationError as error:
-        print(f"An error occurred during the short job description test: {error}")
+    # except LLMIntegrationError as error:
+    #     print(f"An error occurred during the short job description test: {error}")
+    # except LLMIntegrationError as error:
+    #     print(f"An error occurred during the short job description test: {error}")
