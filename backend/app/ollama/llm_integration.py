@@ -15,15 +15,6 @@ class LLMIntegration:
         self.model = model
         self.timeout = timeout  
 
-    @staticmethod
-    def read_text_file(file_path: str) -> str:
-        #Reads text from a file.
-        try:
-            with open(file_path, "r") as f:
-                return f.read()
-        except Exception as e:
-            logging.error(f"Error reading text file: {e}")
-            raise LLMIntegrationError(f"Error reading text file: {e}")
 
     @staticmethod
     def extract_text_from_pdf(pdf_input: Union[str, IO]) -> str:
@@ -130,16 +121,16 @@ class LLMIntegration:
         return markdown_resume
     
 
-    def short_job_description(self, job_description: str) -> str:
-        #Constructs a prompt for the LLM based on job details and the candidate's extracted resume text.
-        prompt_template = (
-            "You are a proffessional job description shortener.\n You have to shorten this job description into, "
-            "5 key bullet points without altering any of the details of the listing.\n Do not have the 5 bullet points "
-            "have sub bullet points. Don't go over more than 5 sentences."
-            "{job_description}\n\n"
-        )
-        prompt = prompt_template.format(job_description=job_description)
-        return prompt
+    # def short_job_description(self, job_description: str) -> str:
+    #     #Constructs a prompt for the LLM based on job details and the candidate's extracted resume text.
+    #     prompt_template = (
+    #         "You are a proffessional job description shortener.\n You have to shorten this job description into, "
+    #         "5 key bullet points without altering any of the details of the listing.\n Do not have the 5 bullet points "
+    #         "have sub bullet points. Don't go over more than 5 sentences."
+    #         "{job_description}\n\n"
+    #     )
+    #     prompt = prompt_template.format(job_description=job_description)
+    #     return prompt
 
 
 
@@ -181,5 +172,7 @@ if __name__ == "__main__":
     #     # print("\nShortened Job Description Output:")
     #     # print(shortened_job_description)
         
+    # except LLMIntegrationError as error:
+    #     print(f"An error occurred during the short job description test: {error}")
     # except LLMIntegrationError as error:
     #     print(f"An error occurred during the short job description test: {error}")
