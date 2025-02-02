@@ -6,6 +6,7 @@ import { Kanban } from './Kanban';
 import Navbar from './Navbar';
 import "./index.css"
 import LandingPage from './LandingPage';
+import EditResumePage from './EditResumePage';
 
 function App() {
 
@@ -14,11 +15,10 @@ function App() {
     <div className="h-screen"> 
     <Navbar/>
     <Routes>
-		<Route path="/" element={<Kanban/>} />
+		<Route path="/" element={<LandingPage/>} />
         <Route path="/dashboard" element={<Kanban/>} />
-        <Route path="/addJob" element={<Kanban/>}/>
-        <Route path="/editResume" element={<Kanban/>}/>
-        <Route path="/landing" element={<LandingPage/>} />
+        <Route path="/editResume" element={<EditResumePage/>}/>
+        <Route path="/home" element={<LandingPage/>} />
         
     </Routes>
 
