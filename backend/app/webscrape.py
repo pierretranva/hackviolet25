@@ -78,7 +78,7 @@ class WebScrape:
         email_field.send_keys(self.username)
         password_field.send_keys(self.password)
         password_field.send_keys(Keys.RETURN)
-        time.sleep(2)
+        time.sleep(20)
 
         driver.get(self.job_url)
 
