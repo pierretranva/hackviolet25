@@ -18,9 +18,10 @@ export default function LandingPage() {
 
 			/>
 			<div className="flex flex-col items-center justify-center h-screen">
+            <img src={pengu} alt="cracked ice" className="w-[12%]" />
 				<h1 className="text-6xl font-bold font-sans">Pengu</h1>
 				<h2 className="text-2xl font-light mt-2">Break the Ice, Land the Job</h2>
-				<img src={pengu} alt="cracked ice" className="w-1/5 mt-8" />
+
 			</div>
 		</div>
 	);
