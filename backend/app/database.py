@@ -1,8 +1,12 @@
 # database.py
 import os
+import gridfs
 from pymongo import MongoClient
+from bson import ObjectId
 from webscrape import WebScrape  # Ensure webscrape.py is accessible in the same directory or Python path
 from ollama.llm_integration import LLMIntegration
+
+
 def main():
     # --- Setup MongoDB Connection ---
     # Use an environment variable for your MongoDB URI, or default to localhost for testing.
@@ -12,8 +16,11 @@ def main():
     db = client["jobapp_test_db"]
     collection = db["job_postings"]
 
+    # Setup GridFS for storing binary files (PDF in this case)
+    fs = gridfs.GridFS(db)
+
+
     # --- Setup the Web Scraper ---
-    # Replace this with a valid LinkedIn job posting URL for your test.
     job_url = "https://www.linkedin.com/jobs/view/4134536792/?alternateChannel=search&refId=QrhnPUM74Lh50t7qdwpcBw%3D%3D&trackingId=V3DXFsM%2Bb9qQTdJ65AscTw%3D%3D"  # Change to a real URL for testing
     scraper = WebScrape(job_url)
 
@@ -26,26 +33,46 @@ def main():
         return
 
     print("Scraped Job Details:")
-    print(job_details)
-
-    llm = LLMIntegration(model="deepseek-r1:1.5b")
+    print(job_details)      
     markdown_file_path = os.path.join("ollama", "UpdatedResume.md")
-    markdown_file_content = ""
+    markdown_file_content = None
     if os.path.exists(markdown_file_path):
-        with open(markdown_file_path, "r", encoding="utf-8") as f:
-            markdown_file_content = f.read()
+        try:
+            with open(markdown_file_path, "rb") as md_file:
+                md_data = md_file.read()
+                # Store the Markdown file in GridFS; the file id is returned.
+                markdown_file_id = fs.put(md_data, filename="UpdatedResume.md", contentType="text/markdown")
+                print(f"Markdown file stored in MongoDB with file id: {markdown_file_id}")
+        except Exception as e:
+            print("Error reading or storing the Markdown file:", e)
     else:
         print(f"Markdown file '{markdown_file_path}' not found.")
+
+    # --- Read and store the PDF file using GridFS ---
+    pdf_file_path = os.path.join("ollama", "Resume.pdf")  
+    pdf_file_id = None
+    if os.path.exists(pdf_file_path):
+        try:
+            with open(pdf_file_path, "rb") as pdf_file:
+                pdf_data = pdf_file.read()
+                # Store the PDF file in GridFS; the file id is returned.
+                pdf_file_id = fs.put(pdf_data, filename="Resume.pdf", contentType="application/pdf")
+                print(f"PDF file stored in MongoDB with file id: {pdf_file_id}")
+        except Exception as e:
+            print("Error reading or storing the PDF file:", e)
+    else:
+        print(f"PDF file '{pdf_file_path}' not found.")
 
     # --- Prepare data to insert ---
     # In a real-world application, the following fields would come from your frontend.
     document = {
         "job_url": job_url,
         "job_details": job_details,
-        "name": "Test Job Name",               # Example string for job name
-        "date": "2025-02-01",                   # Example date string (you might format this as needed)
-        "chips": ["Python(bg-blue-500), FastAPI(bg-green-500)"],  # Example chips as a string
-        "markdown_file": markdown_file_content
+        "name": "Test Job Name",               
+        "date": "2025-02-01",                   
+        "chips": ["Python(bg-blue-500), FastAPI(bg-green-500)"], 
+        "markdown_file": markdown_file_id,
+        "pdf_file_id": pdf_file_id
     }
 
     # --- Insert the scraped data into MongoDB ---
@@ -56,6 +83,32 @@ def main():
     retrieved_doc = collection.find_one({"_id": insert_result.inserted_id})
     print("Retrieved Document from MongoDB:")
     print(retrieved_doc)
+
+def retrieve_markdown_file(markdown_file_id: ObjectId, db, output_path: str = "Retrieved_UpdatedResume.md") -> str:
+    #Retrieves the Markdown file stored in GridFS using its file ID and writes it to output_path.
+    fs = gridfs.GridFS(db)
+    try:
+        file_data = fs.get(markdown_file_id).read()
+        with open(output_path, "wb") as f:
+            f.write(file_data)
+        print(f"Markdown file retrieved and written to: {output_path}")
+        return output_path
+    except Exception as e:
+        print("Error retrieving markdown file:", e)
+        return None
+
+def retrieve_pdf_file(pdf_file_id: ObjectId, db, output_path: str = "Retrieved_Resume.pdf") -> str:
+    #Retrieves the PDF file stored in GridFS using its file ID and writes it to output_path.
+    fs = gridfs.GridFS(db)
+    try:
+        file_data = fs.get(pdf_file_id).read()
+        with open(output_path, "wb") as f:
+            f.write(file_data)
+        print(f"PDF file retrieved and written to: {output_path}")
+        return output_path
+    except Exception as e:
+        print("Error retrieving PDF file:", e)
+        return None
 
 if __name__ == "__main__":
     main()
