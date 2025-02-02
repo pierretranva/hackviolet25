@@ -30,6 +30,19 @@ const Board = () => {
         setModal(false)
         setModal_id(null)
     }
+    const addNewJob = (jobData) => {
+        console.log(jobData)
+        setCards((prev) => [
+            {
+                title: jobData.companyName,
+        id: Math.random().toString(),
+        column: "backlog",
+        content: jobData.date,
+        chips: jobData.chips.map((chip) => {return {id: Math.random().toString(), label: chip, color: CHIP_COLORS[Math.floor(Math.random() * CHIP_COLORS.length)]}}),
+            },
+            ...prev,
+        ]);
+    }
 
 return (
     <div className="grid grid-cols-4 h-full w-full gap-3 overflow-scroll p-12">
@@ -66,11 +79,11 @@ return (
             openModal={openModal}
         />
         <Modal isOpen={modal} modal_id={modal_id} setClose={closeModal}></Modal>
-        <AddModal isOpen={addModal} setClose={setAddModal} />
+        <AddModal isOpen={addModal} setClose={setAddModal} addNewJob={addNewJob} />
         <button onClick={setAddModal}
             className="fixed bottom-20 right-20 p-0 w-20 h-20 rounded-full active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none !bg-[#1E88E5] hover:!bg-[#1565C0]"
         >
-            <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" className="w-6 h-6 inline-block">
+            <svg viewBox="0 0 20 20" enableBackground="new 0 0 20 20" className="w-6 h-6 inline-block">
                 <path fill="#FFFFFF" d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
                                                                 C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
                                                                 C15.952,9,16,9.447,16,10z" />
@@ -438,4 +451,17 @@ const DEFAULT_CARDS = [
             { id: 20, label: "Lambda", color: "bg-pink-100 text-pink-800" },
         ],
     },
+];
+const CHIP_COLORS = [
+    "bg-red-100 text-red-800",
+    "bg-yellow-100 text-yellow-800",
+    "bg-green-100 text-green-800",
+    "bg-blue-100 text-blue-800",
+    "bg-indigo-100 text-indigo-800",
+    "bg-purple-100 text-purple-800",
+    "bg-pink-100 text-pink-800",
+    "bg-black-100 text-black-800",
+    "bg-gray-100 text-gray-800",
+    "bg-orange-100 text-orange-800",
+    "bg-teal-100 text-teal-800",
 ];
