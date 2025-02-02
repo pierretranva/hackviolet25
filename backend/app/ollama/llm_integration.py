@@ -1,48 +1,23 @@
-# llm_integration.py
-
 import logging
 import re
 from typing import Union, IO
 import PyPDF2
-# Import the Ollama API client.
 # Make sure you have installed the official Ollama client (if available).
 import ollama
 
-# Custom exception for LLM Integration errors
 class LLMIntegrationError(Exception):
     pass
 
 class LLMIntegration:
-    """
-    A class to handle integration with the local LLM using the Ollama API/client.
-    
-    Attributes:
-        model (str): The model identifier to be used.
-        timeout (int): Timeout (in seconds) for API calls (if applicable in client usage).
-    """
-
+    #A class to handle integration with the local LLM using the Ollama API/client.
     def __init__(self, model: str = "default-model", timeout: int = 30):
-        """
-        Initialize the LLMIntegration instance.
-        
-        Args:
-            model (str): Model name or identifier.
-            timeout (int): Request timeout in seconds.
-        """
+        # Initialize the LLMIntegration instance.
         self.model = model
-        self.timeout = timeout  # Currently unused in this example; add client-specific timeout if available.
+        self.timeout = timeout  
 
     @staticmethod
     def read_text_file(file_path: str) -> str:
-        """
-        Reads text from a file.
-        
-        Args:
-            file_path (str): Path to the text file.
-            
-        Returns:
-            str: The content of the text file.
-        """
+        #Reads text from a file.
         try:
             with open(file_path, "r") as f:
                 return f.read()
@@ -52,15 +27,7 @@ class LLMIntegration:
 
     @staticmethod
     def extract_text_from_pdf(pdf_input: Union[str, IO]) -> str:
-        """
-        Extracts text from a PDF file.
-        
-        Args:
-            pdf_input (Union[str, IO]): The PDF file path (if str) or a file-like object (if IO).
-            
-        Returns:
-            str: The extracted text from the PDF.
-        """
+        #Extracts text from a PDF file.
         text = ""
         try:
             if isinstance(pdf_input, str):
@@ -83,20 +50,7 @@ class LLMIntegration:
         return text
 
     def build_prompt(self, job_description: str, resume_text: str) -> str:
-        """
-        Constructs a prompt for the LLM based on job details and the candidate's extracted resume text.
-        
-        The prompt instructs the LLM to generate an updated version of the resume that
-        better aligns with the job requirements.
-        
-        Args:
-            job_description (str): The job description text.
-            resume_text (str): The candidate's resume text extracted from the PDF.
-            
-        Returns:
-            str: A formatted prompt string.
-        """
-
+        #Constructs a prompt for the LLM based on job details and the candidate's extracted resume text.
         prompt_template = (
             "You are a professional resume editor. A candidate has provided their resume details below, "
             "and they are applying for a job with the following description.\n\n"
@@ -111,18 +65,7 @@ class LLMIntegration:
         return prompt
 
     def call_llm(self, prompt: str) -> str:
-        """
-        Sends the constructed prompt to the LLM via the Ollama API/client and returns the generated response.
-        
-        Args:
-            prompt (str): The prompt string to be sent to the LLM.
-            
-        Returns:
-            str: The generated text from the LLM, which is expected to be the modified resume.
-            
-        Raises:
-            LLMIntegrationError: If the API call fails or the response is invalid.
-        """
+        #Sends the constructed prompt to the LLM via the Ollama API/client and returns the generated response.
         try:
             # Using the Ollama client to generate a response.
             # The following function call is based on an assumed API for the Ollama client.
@@ -131,8 +74,8 @@ class LLMIntegration:
                 prompt=prompt,
             )
             # The Ollama API response contains the generated text in the 'response' field
-            if hasattr(response, 'response'):
-                return response.response
+            if isinstance(response, dict) and 'response' in response:
+                return response['response']
             else:
                 logging.error(f"Invalid response from Ollama API: {response}")
                 raise LLMIntegrationError("Invalid response from Ollama API: missing 'response' field.")
@@ -141,38 +84,15 @@ class LLMIntegration:
             raise LLMIntegrationError(f"Error calling Ollama API: {e}")
 
     def transform_resume(self, job_description: str,  resume_pdf: Union[str, IO]) -> str:
-        """
-        Transforms a candidate's resume based on the provided job description by:
-        
-            1. Reading experience from text file.
-            2. Building a prompt using the job description and the experience text.
-            3. Sending the prompt to the LLM via the Ollama client.
-            4. Returning the updated resume.
-        
-        Args:
-            job_description (str): The job description text.
-            experience_file (str): Path to the text file containing experience.
-            
-        Returns:
-            str: The updated resume generated by the LLM.
-        """
+        #Transforms a candidate's resume based on the provided job description by:
         resume_text = self.extract_text_from_pdf(resume_pdf)
         prompt = self.build_prompt(job_description, resume_text)
         updated_resume = self.call_llm(prompt)
         return updated_resume
     
     def string_to_markdown(self, resume_as_string: str, output_path: str = "UpdatedResume.md") -> str:
-        """
-        Converts a resume string into markdown format using the LLM, writes the markdown to a file,
-        and returns the markdown string.
-        
-        Args:
-            resume_as_string (str): The resume in plain text format.
-            output_path (str): The file path where the markdown output will be saved.
-            
-        Returns:
-            str: The resume converted to markdown format.
-        """
+        #Converts a resume string into markdown format using the LLM, writes the markdown to a file, 
+        #and returns the markdown string.
         prompt = (
             "{resume_string}\n\n"
             "Please convert the resume to markdown format only. "

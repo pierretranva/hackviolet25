@@ -1,58 +1,88 @@
 
 
-**Sam Kim's Updated Resume**
+Sam Kim
 
 ---
 
-**Contact Information**  
-sam.kim@vt.edu | LinkedIn: sam-kim-8b713a250 | Phone: (703) 674 - 7590
+### **Professional Summary**
+Software Engineer | CV Expertise  
+Current resume includes skills relevant to backend development, Python, FastAPI, cloud services, microservices architecture, and scalable system design. Experience in medical imaging projects using Deep Learning.
 
 ---
 
-**Education**  
-**B.S. Computer Science, Virginia Tech** | May 2025 – May 2025  
+### **Education**
 
-Relevant Coursework:  
-- **Computer Organization & Problem Solving in CS**  
-- **Applied Combinatorics**  
-- **Society of Asian Scientists (SASE)** and **VT-Korean American Students Association (VT KASA)**
+- **B.S. Computer Science**  
+  Virginia Polytechnic State University  
+  August 2021 – May 2025  
 
 ---
 
-**Work Experience**
+### **Relevant Coursework**
 
-1. **Mi2R1, Seoul, Korea**  
-   - **Full-time Intern**: May 2022 – August 2022  
-     Worked on medical imaging research, developing automation scripts and deep learning frameworks.
-
-2. **Chantilly High School, VA**  
-   - **High School Tutor**: August 2018 – May 2021  
-     Tutored in mathematics, computer science, and related subjects.
+- **Computer Organization & Data Structures & Algorithms**
+- **Applied Combinatorics**
+- Relevant student clubs: SASE, KASA, VSA  
 
 ---
 
-**Personal Portfolio**
+### **Experiance**
 
-- Designing a personal website using GitHub Pages for a career portfolio.  
-- Updated skills regularly with relevant information about personal and professional achievements.
-
----
-
-**Technical Skills & Experience**
-
-- **Java**: Strong programming foundation.  
-- **Python**: Used for backend development, deep learning scripts, and cloud services integration.  
-- **Cloud Services**: Understanding of AWS, Azure, Google Cloud roles through personal projects.  
-- **Microservices Architecture**: Completed a personal project using FastAPI for scalable systems.
+#### **Mi2Rl Lab (Seoul Korea)**
+  - **Software Engineer Intern**  
+    - Project: Medical Image Processing and Deep Learning  
+    - Skills: 
+      - Deep learning frameworks (FastAPI)
+      - Automation scripts for databases
+      - CNN-based classification models for Chest X-ray analysis  
 
 ---
 
-**Non-Technical Skills**
-
-- Korean & English  
-- Teamwork & Leadership (Leadership in personal portfolio updates)  
-- Mentorship & Customer Service (Guided career path development)
+#### **Personal Website**
+- **Designing a personal website using GitHub Pages, focusing on backend and frontend development.**  
+- Expanding skills from WordPress to more advanced coding.
 
 ---
 
-This resume emphasizes technical skills in Python, Java, and cloud services, integrates relevant coursework from a Computer Science program, and highlights experiences that demonstrate problem-solving and integration of multiple technologies.
+### **Technical Skills**
+
+#### **Java EE**
+- Java 8+ (Java EE), Spring Boot
+
+#### **Python**
+- Python 3.x, Django ORM, FastAPI framework
+
+#### **C++**
+- C++17, C++11, Qt, OpenCV
+
+#### **MATLAB**
+- Data visualization for medical imaging projects
+
+#### **RESTful APIs**
+- Building API endpoints in FastAPI
+
+#### **Backend Engineering**
+- Designing microservices architecture using Heroku/Django 
+
+#### **Cloud Services**
+- Utilizing AWS and Google Cloud Platform for scalable infrastructure  
+
+---
+
+### **Non-Technical Skills**
+
+- Korean (Proficient)
+- English (Proficient)
+- Teamwork
+- Leadership
+- Mentorship
+- Customer Service
+
+---
+
+**LinkedIn Profile**  
+[Linkedin profile](https://linkedin.com/in/sam-kim)  
+
+---
+
+This resume is structured to emphasize technical expertise in backend development, Python, FastAPI, cloud services, and scalable systems.
