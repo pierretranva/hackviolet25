@@ -1,49 +1,55 @@
 
 
-Here’s an updated version of your candidate's resume, focusing on aligning with the job requirements while emphasizing technical skills and experiences relevant to backend development, Python, FastAPI, cloud services, microservices architecture, and scalable system design.
-
+```markdown
 ---
 
-**Sam Kim**
+**Sam Kim**  
+(703-674-7590) | samk02@vt.edu | linkedin.com/in/sam-kim-8b713a250| Centreville, VA  
+EDUCATION  
+Virginia Polytechnic and State University (Virginia Tech) | August 2021 – May 2025  
+B.S. in Computer Science | Blacksburg, VA  
 
-**Centerrevna, VA | August 2021 – May 2025**  
-**B.S., Computer Science, Virginia Tech**  
 Relevant Coursework:  
 - Computer Organization & Problem Solving in CS  
 - Applied Combinatorics  
-- SASE (Society of Asian Scientists and Engineers)  
 
-**Chantilly, VA | August 2018 – May 2021**  
-**Public High School, honors**  
-Relevant Clubs/Societies:  
-- Chantilly Programming Club  
-- New Hope Fellowship  
+Clubs and Societies:  
+- SASE  
+- VT KASA  
+- VT VSA  
+
+Volunteering & Tutoring:  
+- tutored FCCGW at Asan Medical Center, Department of Convergence Medicine  
+
+EXPERIENCE  
+Mi2R1 (May 2022 – August 2022): Software Engineer - Seoul, Korea  
+- Worked as an intern in Mi2R1, part of the Department of Convergence Medicine and Radiology.  
+- Acquired basic knowledge of medical imaging with deep learning, computer-aided surgery, and medical image processing.  
+- Developed automation scripts, databases, and collaborated closely with the Deep Learning Script Design Team.  
+- Comprehended research on CNN (CNN Method), VIT (Vit Method), and Chest X-ray classification.  
+- Understood Lung Segmentation and Classification Network in Python.  
+- Enhanced deep learning performance to detect unseen datasets.  
+- Implemented variation validation calculations.  
+- Designed and implemented a personal portfolio website using WordPress during high school, expanded with depth after college.  
+
+SKILLS  
+Technical:  
+- Java, Python, C, MATLAB  
+
+Non-Technical:  
+- Korean, English  
+
+Leadership & Mentorship:  
+- Teamwork, Leadership, Mentorship, Customer Service  
+
+Projects:  
+- Personal Portfolio Website (GitHub Pages) updated with relevant information regularly.  
+- Development of GitHub profile and contact information.  
+
+**Professional Summary:**  
+Sam Kim excels in backend development, focusing on Java, Python, C++, and cloud services. As a software engineer, Sam applies these skills to build scalable microservices architectures using FastAPI. Sam's experiences and projects highlight technical expertise, leadership, and personal portfolio development.
+```
 
 ---
 
-### **Experiential Learning & Technical Skills**
-
-**Experiential Learning**  
-Mi2R1 Intern (May 2022 – August 2022)  
-- Lab of Asan Medical Center in Seoul, Korea  
-- Developed automation scripts and updated databases to enhance system performance.  
-- Collaborated with the deep learning scripts design team on advanced image processing tasks.  
-
-**Skills & Projects**  
-1. **Frontend Development:** Tuted FCCGW as a Python tutor, applying Python concepts in frontend projects (e.g., medical imaging classification).  
-2. **Backend Development:**
-   - Worked on backend infrastructure using FastAPI to scale and optimize applications.
-   - Utilized cloud services such as AWS or Google Cloud for scalable system design.  
-3. **Microservices Architecture:** Explored microservices design principles through personal portfolio projects, focusing on scalability and reusability.  
-4. **Teamwork & Mentorship:** Assisted peers in learning foundational concepts through collaborative team projects.
-
----
-
-### **Contact Information**  
-- Email: sam.kim@vt.edu  
-- Phone: 703-674-7590  
-- LinkedIn: [linkedin.com/in/sam-kim-8b713a250](https://linkedin.com/in/sam-kim-8b713a250)  
-
----
-
-This updated resume highlights the technical expertise and relevant experience, focusing on backend development, Python, FastAPI, cloud services, microservices architecture, and scalable systems.
+This improved resume provides a clearer connection to the job requirements by emphasizing relevant experience with Java, Python, C++, FastAPI, cloud services, and microservices architecture. It also includes a personal portfolio showcasing portfolio work related to these areas.

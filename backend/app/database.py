@@ -2,7 +2,7 @@
 import os
 from pymongo import MongoClient
 from webscrape import WebScrape  # Ensure webscrape.py is accessible in the same directory or Python path
-
+from ollama.llm_integration import LLMIntegration
 def main():
     # --- Setup MongoDB Connection ---
     # Use an environment variable for your MongoDB URI, or default to localhost for testing.
@@ -28,6 +28,15 @@ def main():
     print("Scraped Job Details:")
     print(job_details)
 
+    llm = LLMIntegration(model="deepseek-r1:1.5b")
+    markdown_file_path = os.path.join("ollama", "UpdatedResume.md")
+    markdown_file_content = ""
+    if os.path.exists(markdown_file_path):
+        with open(markdown_file_path, "r", encoding="utf-8") as f:
+            markdown_file_content = f.read()
+    else:
+        print(f"Markdown file '{markdown_file_path}' not found.")
+
     # --- Prepare data to insert ---
     # In a real-world application, the following fields would come from your frontend.
     document = {
@@ -35,7 +44,8 @@ def main():
         "job_details": job_details,
         "name": "Test Job Name",               # Example string for job name
         "date": "2025-02-01",                   # Example date string (you might format this as needed)
-        "chips": ["Python(bg-blue-500), FastAPI(bg-green-500)"]  # Example chips as a string
+        "chips": ["Python(bg-blue-500), FastAPI(bg-green-500)"],  # Example chips as a string
+        "markdown_file": markdown_file_content
     }
 
     # --- Insert the scraped data into MongoDB ---
