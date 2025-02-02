@@ -1,88 +1,49 @@
 
 
-Sam Kim
+Here’s an updated version of your candidate's resume, focusing on aligning with the job requirements while emphasizing technical skills and experiences relevant to backend development, Python, FastAPI, cloud services, microservices architecture, and scalable system design.
 
 ---
 
-### **Professional Summary**
-Software Engineer | CV Expertise  
-Current resume includes skills relevant to backend development, Python, FastAPI, cloud services, microservices architecture, and scalable system design. Experience in medical imaging projects using Deep Learning.
+**Sam Kim**
+
+**Centerrevna, VA | August 2021 – May 2025**  
+**B.S., Computer Science, Virginia Tech**  
+Relevant Coursework:  
+- Computer Organization & Problem Solving in CS  
+- Applied Combinatorics  
+- SASE (Society of Asian Scientists and Engineers)  
+
+**Chantilly, VA | August 2018 – May 2021**  
+**Public High School, honors**  
+Relevant Clubs/Societies:  
+- Chantilly Programming Club  
+- New Hope Fellowship  
 
 ---
 
-### **Education**
+### **Experiential Learning & Technical Skills**
 
-- **B.S. Computer Science**  
-  Virginia Polytechnic State University  
-  August 2021 – May 2025  
+**Experiential Learning**  
+Mi2R1 Intern (May 2022 – August 2022)  
+- Lab of Asan Medical Center in Seoul, Korea  
+- Developed automation scripts and updated databases to enhance system performance.  
+- Collaborated with the deep learning scripts design team on advanced image processing tasks.  
 
----
-
-### **Relevant Coursework**
-
-- **Computer Organization & Data Structures & Algorithms**
-- **Applied Combinatorics**
-- Relevant student clubs: SASE, KASA, VSA  
-
----
-
-### **Experiance**
-
-#### **Mi2Rl Lab (Seoul Korea)**
-  - **Software Engineer Intern**  
-    - Project: Medical Image Processing and Deep Learning  
-    - Skills: 
-      - Deep learning frameworks (FastAPI)
-      - Automation scripts for databases
-      - CNN-based classification models for Chest X-ray analysis  
+**Skills & Projects**  
+1. **Frontend Development:** Tuted FCCGW as a Python tutor, applying Python concepts in frontend projects (e.g., medical imaging classification).  
+2. **Backend Development:**
+   - Worked on backend infrastructure using FastAPI to scale and optimize applications.
+   - Utilized cloud services such as AWS or Google Cloud for scalable system design.  
+3. **Microservices Architecture:** Explored microservices design principles through personal portfolio projects, focusing on scalability and reusability.  
+4. **Teamwork & Mentorship:** Assisted peers in learning foundational concepts through collaborative team projects.
 
 ---
 
-#### **Personal Website**
-- **Designing a personal website using GitHub Pages, focusing on backend and frontend development.**  
-- Expanding skills from WordPress to more advanced coding.
+### **Contact Information**  
+- Email: sam.kim@vt.edu  
+- Phone: 703-674-7590  
+- LinkedIn: [linkedin.com/in/sam-kim-8b713a250](https://linkedin.com/in/sam-kim-8b713a250)  
 
 ---
 
-### **Technical Skills**
-
-#### **Java EE**
-- Java 8+ (Java EE), Spring Boot
-
-#### **Python**
-- Python 3.x, Django ORM, FastAPI framework
-
-#### **C++**
-- C++17, C++11, Qt, OpenCV
-
-#### **MATLAB**
-- Data visualization for medical imaging projects
-
-#### **RESTful APIs**
-- Building API endpoints in FastAPI
-
-#### **Backend Engineering**
-- Designing microservices architecture using Heroku/Django 
-
-#### **Cloud Services**
-- Utilizing AWS and Google Cloud Platform for scalable infrastructure  
-
----
-
-### **Non-Technical Skills**
-
-- Korean (Proficient)
-- English (Proficient)
-- Teamwork
-- Leadership
-- Mentorship
-- Customer Service
-
----
-
-**LinkedIn Profile**  
-[Linkedin profile](https://linkedin.com/in/sam-kim)  
-
----
-
-This resume is structured to emphasize technical expertise in backend development, Python, FastAPI, cloud services, and scalable systems.
+This updated resume highlights the technical expertise and relevant experience, focusing on backend development, Python, FastAPI, cloud services, microservices architecture, and scalable systems.

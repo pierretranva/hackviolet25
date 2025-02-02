@@ -1,6 +1,6 @@
 # app/auth.py
 from fastapi import APIRouter, HTTPException
-from app.models import UserIn
+from backend.app.API.models import UserIn
 from app.config import db
 
 router = APIRouter()

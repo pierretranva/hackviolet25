@@ -78,7 +78,7 @@ class WebScrape:
         email_field.send_keys(self.username)
         password_field.send_keys(self.password)
         password_field.send_keys(Keys.RETURN)
-        time.sleep(2)
+        time.sleep(20)
 
         driver.get(self.job_url)
 
@@ -109,7 +109,7 @@ class WebScrape:
                 print("No <p> element with dir='ltr' found inside div.mt4.")
         else:
             print("No div.mt4 found in the document.")
-            
+
         return job_details_text
     
     def indeed_ws(self):
