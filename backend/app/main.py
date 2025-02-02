@@ -1,21 +1,22 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="HackViolet API")
+import uvicorn
 
-# Configure CORS
+app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 @app.get("/")
-async def root():
-    return {"message": "Welcome to HackViolet API"}
+def read_root():
+    return {"Hello": "World"}
 
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app,host="127.0.0.1", port=8000, reload=False)
