@@ -4,6 +4,10 @@ from typing import List
 
 from fastapi.middleware.cors import CORSMiddleware
 
+from ollama.llm_integration import LLMIntegration
+from webscrape import WebScrape
+
+
 import uvicorn
 
 app = FastAPI(title="PenguAPI")
@@ -43,8 +47,28 @@ def add_personal_info_request (resume_add: str, additional_info: str):
     return mongo_id
 
 def edit_resume_request(job_mongo_id: str, personal_info_mongo_id: str):
-    mongo_id = personal_info_mongo_id
-    md_resume_new = f"{job_mongo_id} - Woah, nice resume!"
+    penguAI = LLMIntegration(model="deepseek-r1:1.5b")
+    job_url = "https://www.linkedin.com/jobs/view/4139906168/?alternateChannel=search&refId=Gmoziy9CPHHdQ%2B3XSqLrnQ%3D%3D&trackingId=pJrlfbjMos6lPPfEWPj0cQ%3D%3D" #mongodb grab
+    resume_pdf = "" ##mongodb grab
+
+    sample_resume_pdf = "Resume2.pdf"
+    # Specify the output markdown file path
+    output_markdown_file = "UpdatedResume2.md"
+
+    corvScraper = WebScrape(job_url)
+    job_description = corvScraper.scrape()
+    print(job_description)
+
+    try:
+         modified_resume = penguAI.transform_resume(job_description, sample_resume_pdf)
+         md_resume_new = modified_resume
+        
+         markdown_resume = penguAI.string_to_markdown(modified_resume, output_markdown_file) ##ask sam how this output markdown file thing works im too tired to figure it out
+         ##chuck the markdown_resume into mongodb
+    except:
+        print("what")
+
+    mongo_id = "whatever mongo is for the new resume"
     return mongo_id, md_resume_new
 
 
