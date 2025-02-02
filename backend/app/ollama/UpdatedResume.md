@@ -1,55 +1,21 @@
 
 
-```markdown
----
+To convert an XML file into HTML, follow these steps:
 
-**Sam Kim**  
-(703-674-7590) | samk02@vt.edu | linkedin.com/in/sam-kim-8b713a250| Centreville, VA  
-EDUCATION  
-Virginia Polytechnic and State University (Virginia Tech) | August 2021 – May 2025  
-B.S. in Computer Science | Blacksburg, VA  
+1. **Parse the XML**: Use an XML parser to read the provided XML document.
 
-Relevant Coursework:  
-- Computer Organization & Problem Solving in CS  
-- Applied Combinatorics  
+2. **Extract Tags**: Identify and extract all the tags from the XML.
 
-Clubs and Societies:  
-- SASE  
-- VT KASA  
-- VT VSA  
+3. **Map Element Names**: Map each element name extracted from XML to its corresponding HTML tag using a predefined mapping strategy if necessary.
 
-Volunteering & Tutoring:  
-- tutored FCCGW at Asan Medical Center, Department of Convergence Medicine  
+4. **Reconstruct HTML Structure**: Rebuild the HTML structure by converting each XML element into its HTML counterpart, maintaining proper nesting and indentation.
 
-EXPERIENCE  
-Mi2R1 (May 2022 – August 2022): Software Engineer - Seoul, Korea  
-- Worked as an intern in Mi2R1, part of the Department of Convergence Medicine and Radiology.  
-- Acquired basic knowledge of medical imaging with deep learning, computer-aided surgery, and medical image processing.  
-- Developed automation scripts, databases, and collaborated closely with the Deep Learning Script Design Team.  
-- Comprehended research on CNN (CNN Method), VIT (Vit Method), and Chest X-ray classification.  
-- Understood Lung Segmentation and Classification Network in Python.  
-- Enhanced deep learning performance to detect unseen datasets.  
-- Implemented variation validation calculations.  
-- Designed and implemented a personal portfolio website using WordPress during high school, expanded with depth after college.  
+5. **Handle DOCTYPE**: Convert the DOCTYPE declaration appropriately from XHTML 1.0 Transitional to standard HTML 5.
 
-SKILLS  
-Technical:  
-- Java, Python, C, MATLAB  
+6. **Add Metadata**: Include any necessary metadata (like a title) if present in the XML.
 
-Non-Technical:  
-- Korean, English  
+7. **Generate Output**: Combine all the parsed elements and converted parts into a well-structured HTML document.
 
-Leadership & Mentorship:  
-- Teamwork, Leadership, Mentorship, Customer Service  
+8. **Validate and Test**: Validate the generated HTML against both XML and HTML standards, and test it to ensure proper rendering in web browsers.
 
-Projects:  
-- Personal Portfolio Website (GitHub Pages) updated with relevant information regularly.  
-- Development of GitHub profile and contact information.  
-
-**Professional Summary:**  
-Sam Kim excels in backend development, focusing on Java, Python, C++, and cloud services. As a software engineer, Sam applies these skills to build scalable microservices architectures using FastAPI. Sam's experiences and projects highlight technical expertise, leadership, and personal portfolio development.
-```
-
----
-
-This improved resume provides a clearer connection to the job requirements by emphasizing relevant experience with Java, Python, C++, FastAPI, cloud services, and microservices architecture. It also includes a personal portfolio showcasing portfolio work related to these areas.
+By following these steps, you can accurately convert an XML file into a standard HTML document that is compatible with web browsers.
