@@ -4,7 +4,7 @@ from typing import List, Optional
 from bson import ObjectId
 from datetime import datetime
 
-from app.models import JobPosting
+from backend.app.API.models import JobPosting
 from app.config import db
 
 router = APIRouter()

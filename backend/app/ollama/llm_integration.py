@@ -113,14 +113,15 @@ class LLMIntegration:
         return markdown_resume
     
 
-    def short_job_description(self, job_description: str, resume_text: str) -> str:
+    def short_job_description(self, job_description: str) -> str:
         #Constructs a prompt for the LLM based on job details and the candidate's extracted resume text.
         prompt_template = (
-            "You are a proffessional job description shortener. You have to shorten this job description into,"
-            "5 key bullet points without altering any of the details of the listing"
+            "You are a proffessional job description shortener. You have to shorten this job description into, "
+            "5 key bullet points without altering any of the details of the listing. Do not have the 5 bullet points "
+            "have sub bullet points."
             "{job_description}\n\n"
         )
-        prompt = prompt_template.format(job_description=job_description, resume_text=resume_text)
+        prompt = prompt_template.format(job_description=job_description)
         return prompt
 
 
@@ -141,13 +142,29 @@ if __name__ == "__main__":
     llm_integration = LLMIntegration(model="deepseek-r1:1.5b")  # Replace with your actual Ollama model name
 
     try:
-        # Get the updated resume from the PDF based on the job description
-        modified_resume = llm_integration.transform_resume(sample_job_description, sample_resume_pdf)
-        print("Modified Resume:\n")
-        print(modified_resume)
+         # Get the updated resume from the PDF based on the job description
+         modified_resume = llm_integration.transform_resume(sample_job_description, sample_resume_pdf)
+         print("Modified Resume:\n")
+         print(modified_resume)
         
-        # Convert the updated resume to markdown format and write to file
-        markdown_resume = llm_integration.string_to_markdown(modified_resume, output_markdown_file)
-        print(f"Markdown resume written to: {output_markdown_file}")
+         # Convert the updated resume to markdown format and write to file
+         markdown_resume = llm_integration.string_to_markdown(modified_resume, output_markdown_file)
+         print(f"Markdown resume written to: {output_markdown_file}")
     except LLMIntegrationError as error:
-        print(f"An error occurred during LLM integration: {error}")
+         print(f"An error occurred during LLM integration: {error}")
+
+    # ----- Test for short_job_description -----
+    try:
+        print("\n=== Testing short_job_description ===")
+        # Generate the prompt for the short job description
+        short_desc_prompt = llm_integration.short_job_description(sample_job_description)
+        print("Generated Prompt for Shortening Job Description:")
+        print(short_desc_prompt)
+        
+        # Optionally, call the LLM to get the shortened job description
+        shortened_job_description = llm_integration.call_llm(short_desc_prompt)
+        print("\nShortened Job Description Output:")
+        print(shortened_job_description)
+        
+    except LLMIntegrationError as error:
+        print(f"An error occurred during the short job description test: {error}")
