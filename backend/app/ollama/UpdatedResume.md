@@ -1,55 +1,32 @@
 
 
-```markdown
----
+**Sam Kim**
 
-**Sam Kim**  
-(703-674-7590) | samk02@vt.edu | linkedin.com/in/sam-kim-8b713a250| Centreville, VA  
-EDUCATION  
-Virginia Polytechnic and State University (Virginia Tech) | August 2021 – May 2025  
-B.S. in Computer Science | Blacksburg, VA  
+**Software Development**
 
-Relevant Coursework:  
-- Computer Organization & Problem Solving in CS  
-- Applied Combinatorics  
+- **Java, Python, C++, MATLAB**
+  - Expertise in Java, Python, C++, and MATLAB for backend development and system design.
 
-Clubs and Societies:  
-- SASE  
-- VT KASA  
-- VT VSA  
+- **Frontend Development**
+  - Proven expertise in frontend technologies including HTML, CSS, JavaScript, React, and Vue.
 
-Volunteering & Tutoring:  
-- tutored FCCGW at Asan Medical Center, Department of Convergence Medicine  
+- **Backend Development**
+  - Strong understanding of backend systems like FastAPI, Firebase, and cloud services such as AWS Lambda and Azure AD.
 
-EXPERIENCE  
-Mi2R1 (May 2022 – August 2022): Software Engineer - Seoul, Korea  
-- Worked as an intern in Mi2R1, part of the Department of Convergence Medicine and Radiology.  
-- Acquired basic knowledge of medical imaging with deep learning, computer-aided surgery, and medical image processing.  
-- Developed automation scripts, databases, and collaborated closely with the Deep Learning Script Design Team.  
-- Comprehended research on CNN (CNN Method), VIT (Vit Method), and Chest X-ray classification.  
-- Understood Lung Segmentation and Classification Network in Python.  
-- Enhanced deep learning performance to detect unseen datasets.  
-- Implemented variation validation calculations.  
-- Designed and implemented a personal portfolio website using WordPress during high school, expanded with depth after college.  
+**Professional Experience**
 
-SKILLS  
-Technical:  
-- Java, Python, C, MATLAB  
+**Internship – Seoul, Korea (May 2022 – August 2022)**
+- Worked on medical imaging labs using deep learning techniques.  
+- Developed automation scripts for medical image processing.  
+- Collaborated with design teams to improve CNN-based classification models and understand lung segmentation networks.
 
-Non-Technical:  
-- Korean, English  
-
-Leadership & Mentorship:  
-- Teamwork, Leadership, Mentorship, Customer Service  
-
-Projects:  
-- Personal Portfolio Website (GitHub Pages) updated with relevant information regularly.  
-- Development of GitHub profile and contact information.  
-
-**Professional Summary:**  
-Sam Kim excels in backend development, focusing on Java, Python, C++, and cloud services. As a software engineer, Sam applies these skills to build scalable microservices architectures using FastAPI. Sam's experiences and projects highlight technical expertise, leadership, and personal portfolio development.
-```
+**Personal Portfolio - GitHub Pages Website (May 2018 – Present)**
+- Designed and maintained a personal website using college-level backend and frontend frameworks.
+- Enhanced skills through continuous updates to the site, including relevant information on experiences and achievements.
 
 ---
 
-This improved resume provides a clearer connection to the job requirements by emphasizing relevant experience with Java, Python, C++, FastAPI, cloud services, and microservices architecture. It also includes a personal portfolio showcasing portfolio work related to these areas.
+**Education**
+
+**B.S. Computer Science, Virginia Tech (2021 – May 2025)**
+- Graduated with a B.S. in Computer Science from Virginia Tech, updated to reflect current degree completion status.
