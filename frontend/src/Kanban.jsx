@@ -5,6 +5,7 @@ import { FaFire } from "react-icons/fa";
 import CardItem from "./CardItem";
 import Modal from "./modal";
 import AddModal from "./AddModal";
+import axios from "axios";
 
 
 export const Kanban = () => {
@@ -30,14 +31,30 @@ const Board = () => {
         setModal(false)
         setModal_id(null)
     }
+    const addJobAPI = (jobData) =>{
+        let body= {company_name: jobData.companyName, date: jobData.date, url: jobData.jobUrl, chips: jobData.chips}
+        console.log(body)
+        axios.post('http://localhost:8000/add-job',body, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        } )
+        .then((response) => {
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
     const addNewJob = (jobData) => {
-        console.log(jobData)
+        // console.log(jobData)
+        addJobAPI(jobData)
         setCards((prev) => [
             {
                 title: jobData.companyName,
-        id: Math.random().toString(),
-        column: "backlog",
-        content: jobData.date,
+        object_id: Math.random().toString(),
+        column: "todo",
+        url: jobData.jobUrl,
+        date: jobData.date,
         chips: jobData.chips.map((chip) => {return {id: Math.random().toString(), label: chip, color: CHIP_COLORS[Math.floor(Math.random() * CHIP_COLORS.length)]}}),
             },
             ...prev,
@@ -47,14 +64,6 @@ const Board = () => {
 return (
     <div className="grid grid-cols-4 h-full w-full gap-3 overflow-scroll p-12">
         <Column
-            title="Backlog"
-            column="backlog"
-            headingColor="text-[#1E88E5]"
-            cards={cards}
-            setCards={setCards}
-            openModal={openModal}
-        />
-        <Column
             title="TODO"
             column="todo"
             headingColor="text-[#1E88E5]"
@@ -63,16 +72,24 @@ return (
             openModal={openModal}
         />
         <Column
-            title="In progress"
-            column="doing"
+            title="Applied"
+            column="applied"
             headingColor="text-[#1E88E5]"
             cards={cards}
             setCards={setCards}
             openModal={openModal}
         />
         <Column
-            title="Complete"
-            column="done"
+            title="Interview"
+            column="interview"
+            headingColor="text-[#1E88E5]"
+            cards={cards}
+            setCards={setCards}
+            openModal={openModal}
+        />
+        <Column
+            title="Offer"
+            column="offer"
             headingColor="text-[#1E88E5]"
             cards={cards}
             setCards={setCards}
@@ -221,7 +238,7 @@ const Column = ({ title, headingColor, cards, column, setCards, openModal }) => 
   );
 };
 
-const Card = ({ setCards, title, id, column,chips, handleDragStart, openModal }) => {
+const Card = ({ setCards, date,title, id, column,chips, handleDragStart, openModal }) => {
   return (
     <>
       <DropIndicator beforeId={id} column={column} />
@@ -232,7 +249,7 @@ const Card = ({ setCards, title, id, column,chips, handleDragStart, openModal })
         onDragStart={(e) => handleDragStart(e, { title, id, column })}
         className="cursor-grab rounded border border-[#90CAF9] bg-white shadow-sm active:cursor-grabbing"
       >
-       <CardItem cardId={id} title={title}  chips={chips} setCards={setCards} openModal={openModal}></CardItem>
+       <CardItem cardId={id} title={title} date={date} chips={chips} setCards={setCards} openModal={openModal}></CardItem>
       </motion.div>
     </>
   );
@@ -284,86 +301,27 @@ const BurnBarrel = ({ setCards }) => {
   );
 };
 
-const AddCard = ({ column, setCards }) => {
-  const [text, setText] = useState("");
-  const [adding, setAdding] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!text.trim().length) return;
-
-    const newCard = {
-      column,
-      title: text.trim(),
-      id: Math.random().toString(),
-    };
-
-    setCards((pv) => [...pv, newCard]);
-
-    setAdding(false);
-  };
-
-  return (
-    <>
-      {adding ? (
-        <motion.form layout onSubmit={handleSubmit}>
-          <textarea
-            onChange={(e) => setText(e.target.value)}
-            autoFocus
-            placeholder="Add new task..."
-            className="w-full rounded border border-[#90CAF9] bg-[#E3F2FD] p-3 text-sm text-[#1E88E5] placeholder-[#90CAF9] focus:outline-0"
-          />
-          <div className="mt-1.5 flex items-center justify-end gap-1.5">
-            <button
-              onClick={() => setAdding(false)}
-              className="px-3 py-1.5 text-xs text-[#90CAF9] transition-colors hover:text-[#1E88E5]"
-            >
-              Close
-            </button>
-            <button
-              type="submit"
-              className="flex items-center gap-1.5 rounded bg-[#1E88E5] px-3 py-1.5 text-xs text-white transition-colors hover:bg-[#1976D2]"
-            >
-              <span>Add</span>
-              <FiPlus />
-            </button>
-          </div>
-        </motion.form>
-      ) : (
-        <motion.button
-          layout
-          onClick={() => setAdding(true)}
-          className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs text-[#90CAF9] transition-colors hover:text-[#1E88E5]"
-        >
-          <span>Add card</span>
-          <FiPlus />
-        </motion.button>
-      )}
-    </>
-  );
-};
 const DEFAULT_CARDS = [
     // BACKLOG
-    // {
-    //     title: "Apple",
-    //     id: "1",
-    //     column: "backlog",
-    //     date: "2023-10-01",
-    //     url: "https://www.apple.com",
-    //     job_description: "Apple Inc. is an American multinational technology company that specializes in consumer electronics, computer software, and online services.",
-    //     resume_edit_desc:
-    //     chips: [
-    //         { id: 1, label: "High Priority", color: "bg-red-100 text-red-800" },
-    //         { id: 2, label: "Backend", color: "bg-blue-100 text-blue-800" },
-    //         { id: 3, label: "Sprint 2", color: "bg-green-100 text-green-800" },
-    //     ],
-    // },
+    {
+        title: "Apple",
+        object_id: "1",
+        column: "todo",
+        date: "2023-10-01",
+        url: "https://www.apple.com",
+        chips: [
+            { id: 1, label: "High Priority", color: "bg-red-100 text-red-800" },
+            { id: 2, label: "Backend", color: "bg-blue-100 text-blue-800" },
+            { id: 3, label: "Sprint 2", color: "bg-green-100 text-green-800" },
+        ],
+    },
     {
         title: "Microsoft",
-        id: "2",
-        column: "backlog",
-        content: "2023-10-02",
+        object_id: "2",
+        column: "interview",
+        date: "2023-10-02",
+        url: "https://www.microsoft.com",
         chips: [
             { id: 4, label: "Low Priority", color: "bg-yellow-100 text-yellow-800" },
             { id: 5, label: "Frontend", color: "bg-purple-100 text-purple-800" },
@@ -371,9 +329,10 @@ const DEFAULT_CARDS = [
     },
     {
         title: "IBM",
-        id: "3",
-        column: "backlog",
-        content: "2023-10-03",
+        object_id: "3",
+        column: "offer",
+        date: "2023-10-03",
+        url: "https://www.ibm.com",
         chips: [
             { id: 6, label: "Medium Priority", color: "bg-orange-100 text-orange-800" },
             { id: 7, label: "DevOps", color: "bg-teal-100 text-teal-800" },
@@ -382,8 +341,9 @@ const DEFAULT_CARDS = [
     {
         title: "Oracle",
         id: "4",
-        column: "backlog",
-        content: "2023-10-04",
+        column: "interview",
+        date: "2023-10-04",
+        url: "https://www.oracle.com",
         chips: [
             { id: 8, label: "Documentation", color: "bg-gray-100 text-gray-800" },
         ],
@@ -393,7 +353,8 @@ const DEFAULT_CARDS = [
         title: "Salesforce",
         id: "5",
         column: "todo",
-        content: "2023-10-05",
+        date: "2023-10-05",
+        url: "https://www.salesforce.com",
         chips: [
             { id: 9, label: "Research", color: "bg-pink-100 text-pink-800" },
             { id: 10, label: "Database", color: "bg-indigo-100 text-indigo-800" },
@@ -401,9 +362,10 @@ const DEFAULT_CARDS = [
     },
     {
         title: "SAP",
-        id: "6",
+        object_id: "6",
         column: "todo",
-        content: "2023-10-06",
+        date: "2023-10-06",
+        url: "https://www.sap.com",
         chips: [
             { id: 11, label: "Postmortem", color: "bg-red-100 text-red-800" },
             { id: 12, label: "Incident", color: "bg-black-100 text-black-800" },
@@ -411,9 +373,10 @@ const DEFAULT_CARDS = [
     },
     {
         title: "Adobe",
-        id: "7",
+        object_id: "7",
         column: "todo",
-        content: "2023-10-07",
+        date: "2023-10-07",
+        url: "https://www.adobe.com",
         chips: [
             { id: 13, label: "Meeting", color: "bg-blue-100 text-blue-800" },
             { id: 14, label: "Roadmap", color: "bg-green-100 text-green-800" },
@@ -422,9 +385,10 @@ const DEFAULT_CARDS = [
     // DOING
     {
         title: "Intel",
-        id: "8",
-        column: "doing",
-        content: "2023-10-08",
+        object_id: "8",
+        column: "applied",
+        date: "2023-10-08",
+        url: "https://www.intel.com",
         chips: [
             { id: 15, label: "Refactor", color: "bg-yellow-100 text-yellow-800" },
             { id: 16, label: "State Management", color: "bg-purple-100 text-purple-800" },
@@ -432,9 +396,10 @@ const DEFAULT_CARDS = [
     },
     {
         title: "Cisco",
-        id: "9",
+        output_id: "9",
         column: "doing",
-        content: "2023-10-09",
+        date: "2023-10-09",
+        url: "https://www.cisco.com",
         chips: [
             { id: 17, label: "Logging", color: "bg-orange-100 text-orange-800" },
             { id: 18, label: "CRON", color: "bg-teal-100 text-teal-800" },
@@ -443,9 +408,10 @@ const DEFAULT_CARDS = [
     // DONE
     {
         title: "Nvidia",
-        id: "10",
+        output_id: "10",
         column: "done",
-        content: "2023-10-10",
+        date: "2023-10-10",
+        url: "https://www.nvidia.com",
         chips: [
             { id: 19, label: "Dashboard", color: "bg-gray-100 text-gray-800" },
             { id: 20, label: "Lambda", color: "bg-pink-100 text-pink-800" },
