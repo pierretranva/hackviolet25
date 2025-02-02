@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { FaFire } from "react-icons/fa";
 import CardItem from "./CardItem";
 import Modal from "./modal";
+import AddModal from "./AddModal";
+
 
 export const Kanban = () => {
   return (
@@ -18,6 +20,8 @@ const Board = () => {
   const [modal, setModal] = useState(false)
   const [modal_id, setModal_id] = useState(null)
 
+  const [addModal, setAddModal] = useState(false)
+
     const openModal = (id) => {
         setModal(true)
         setModal_id(id)
@@ -27,44 +31,53 @@ const Board = () => {
         setModal_id(null)
     }
 
-  return (
+return (
     <div className="grid grid-cols-4 h-full w-full gap-3 overflow-scroll p-12">
-      <Column
-        title="Backlog"
-        column="backlog"
-        headingColor="text-[#1E88E5]"
-        cards={cards}
-        setCards={setCards}
-        openModal={openModal}
-      />
-      <Column
-        title="TODO"
-        column="todo"
-        headingColor="text-[#1E88E5]"
-        cards={cards}
-        setCards={setCards}
-        openModal={openModal}
-      />
-      <Column
-        title="In progress"
-        column="doing"
-        headingColor="text-[#1E88E5]"
-        cards={cards}
-        setCards={setCards}
-        openModal={openModal}
-      />
-      <Column
-        title="Complete"
-        column="done"
-        headingColor="text-[#1E88E5]"
-        cards={cards}
-        setCards={setCards}
-        openModal={openModal}
-      />
-      <Modal isOpen={modal} modal_id={modal_id} setClose={closeModal}></Modal>
-      {/* <Button className="fixed bottom-3 right-14 text-blue-500"> </Button> */}
+        <Column
+            title="Backlog"
+            column="backlog"
+            headingColor="text-[#1E88E5]"
+            cards={cards}
+            setCards={setCards}
+            openModal={openModal}
+        />
+        <Column
+            title="TODO"
+            column="todo"
+            headingColor="text-[#1E88E5]"
+            cards={cards}
+            setCards={setCards}
+            openModal={openModal}
+        />
+        <Column
+            title="In progress"
+            column="doing"
+            headingColor="text-[#1E88E5]"
+            cards={cards}
+            setCards={setCards}
+            openModal={openModal}
+        />
+        <Column
+            title="Complete"
+            column="done"
+            headingColor="text-[#1E88E5]"
+            cards={cards}
+            setCards={setCards}
+            openModal={openModal}
+        />
+        <Modal isOpen={modal} modal_id={modal_id} setClose={closeModal}></Modal>
+        <AddModal isOpen={addModal} setClose={setAddModal} />
+        <button onClick={setAddModal}
+            className="fixed bottom-20 right-20 p-0 w-20 h-20 rounded-full active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none !bg-[#1E88E5] hover:!bg-[#1565C0]"
+        >
+            <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" className="w-6 h-6 inline-block">
+                <path fill="#FFFFFF" d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
+                                                                C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
+                                                                C15.952,9,16,9.447,16,10z" />
+            </svg>
+        </button>
     </div>
-  );
+);
 };
 
 const Column = ({ title, headingColor, cards, column, setCards, openModal }) => {
@@ -319,17 +332,20 @@ const AddCard = ({ column, setCards }) => {
 };
 const DEFAULT_CARDS = [
     // BACKLOG
-    {
-        title: "Apple",
-        id: "1",
-        column: "backlog",
-        content: "2023-10-01",
-        chips: [
-            { id: 1, label: "High Priority", color: "bg-red-100 text-red-800" },
-            { id: 2, label: "Backend", color: "bg-blue-100 text-blue-800" },
-            { id: 3, label: "Sprint 2", color: "bg-green-100 text-green-800" },
-        ],
-    },
+    // {
+    //     title: "Apple",
+    //     id: "1",
+    //     column: "backlog",
+    //     date: "2023-10-01",
+    //     url: "https://www.apple.com",
+    //     job_description: "Apple Inc. is an American multinational technology company that specializes in consumer electronics, computer software, and online services.",
+    //     resume_edit_desc:
+    //     chips: [
+    //         { id: 1, label: "High Priority", color: "bg-red-100 text-red-800" },
+    //         { id: 2, label: "Backend", color: "bg-blue-100 text-blue-800" },
+    //         { id: 3, label: "Sprint 2", color: "bg-green-100 text-green-800" },
+    //     ],
+    // },
     {
         title: "Microsoft",
         id: "2",

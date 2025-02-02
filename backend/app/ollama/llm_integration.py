@@ -111,6 +111,18 @@ class LLMIntegration:
             raise LLMIntegrationError(f"Error writing markdown file: {e}")
             
         return markdown_resume
+    
+
+    def short_job_description(self, job_description: str, resume_text: str) -> str:
+        #Constructs a prompt for the LLM based on job details and the candidate's extracted resume text.
+        prompt_template = (
+            "You are a proffessional job description shortener. You have to shorten this job description into,"
+            "5 key bullet points without altering any of the details of the listing"
+            "{job_description}\n\n"
+        )
+        prompt = prompt_template.format(job_description=job_description, resume_text=resume_text)
+        return prompt
+
 
 
 if __name__ == "__main__":

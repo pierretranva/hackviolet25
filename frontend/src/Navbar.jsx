@@ -4,9 +4,11 @@ import { FaRegSnowflake } from "react-icons/fa";
 import './index.css'
 import pengu from './pengu.jpg';
 import { Snowflake } from 'lucide-react';
+import{ NavLink }from 'react-router-dom';
+import {useState} from 'react';
 
 const navigation = [
-  { name: 'Home', href: '/landing', current: true },
+  { name: 'Landing Page', href: '/landing', current: true },
   { name: 'Dashboard', href: '/dashboard', current: false },
   { name: 'Add Job', href: '/addJob', current: false },
   { name: 'Resume Info', href: '/editResume', current: false },
@@ -17,6 +19,13 @@ function classNames(...classes) {
 }
 
 export default function Example() {
+    const [navigation, setNavigation] = useState([
+        { name: 'Landing Page', href: '/landing', current: true },
+        { name: 'Dashboard', href: '/dashboard', current: false },
+        { name: 'Add Job', href: '/addJob', current: false },
+        { name: 'Resume Info', href: '/editResume', current: false },
+      ])
+    
   return (
     <Disclosure as="nav" className="bg-[#E3F2FD] shadow-md">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -37,17 +46,17 @@ export default function Example() {
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {navigation.map((item) => (
-                  <a
+                  <NavLink to={item.href}
+                    onClick={() => {setNavigation(navigation.map((navItem) => ({ ...navItem, current: navItem.name === item.name })) )}}
                     key={item.name}
-                    href={item.href}
                     aria-current={item.current ? 'page' : undefined}
                     className={classNames(
-                      item.current ? 'bg-[#1E88E5] text-white' : 'text-[#1E88E5] hover:bg-[#90CAF9] hover:text-white',
+                      item.current ? 'bg-[#1E88E5] !text-white' : 'text-[#1E88E5] hover:bg-[#90CAF9] hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium',
                     )}
                   >
                     {item.name}
-                  </a>
+                  </NavLink>
                 ))}
               </div>
             </div>
