@@ -8,9 +8,8 @@ import{ NavLink }from 'react-router-dom';
 import {useState} from 'react';
 
 const navigation = [
-  { name: 'Landing Page', href: '/landing', current: true },
+  { name: 'Home', href: '/home', current: true },
   { name: 'Dashboard', href: '/dashboard', current: false },
-  { name: 'Add Job', href: '/addJob', current: false },
   { name: 'Resume Info', href: '/editResume', current: false },
 ]
 
@@ -20,9 +19,8 @@ function classNames(...classes) {
 
 export default function Example() {
     const [navigation, setNavigation] = useState([
-        { name: 'Landing Page', href: '/landing', current: true },
+        { name: 'Home', href: '/home', current: true },
         { name: 'Dashboard', href: '/dashboard', current: false },
-        { name: 'Add Job', href: '/addJob', current: false },
         { name: 'Resume Info', href: '/editResume', current: false },
       ])
     

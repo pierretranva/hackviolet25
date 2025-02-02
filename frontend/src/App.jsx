@@ -14,11 +14,10 @@ function App() {
     <div className="h-screen"> 
     <Navbar/>
     <Routes>
-		<Route path="/" element={<Kanban/>} />
+		<Route path="/" element={<LandingPage/>} />
         <Route path="/dashboard" element={<Kanban/>} />
-        <Route path="/addJob" element={<Kanban/>}/>
         <Route path="/editResume" element={<Kanban/>}/>
-        <Route path="/landing" element={<LandingPage/>} />
+        <Route path="/home" element={<LandingPage/>} />
         
     </Routes>
 
