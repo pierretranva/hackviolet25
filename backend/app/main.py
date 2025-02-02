@@ -32,7 +32,7 @@ class AddResumeAndOtherInfoPayload(BaseModel):
 
 class EditResumePayload(BaseModel):
     job_mongo_id: str
-    personal_info_mongo_id: str
+    # personal_info_mongo_id: str
 
 class UploadDescriptionPayload(BaseModel):
     description: str
