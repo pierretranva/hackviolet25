@@ -14,8 +14,11 @@ function App() {
     <Navbar/>
     <Routes>
 		<Route path="/" element={<Kanban/>} />
-		{/* <Route path="/edit" element={<EditProfile/>} /> */}
-
+        <Route path="/dashboard" element={<Kanban/>} />
+        <Route path="/addJob" element={<Kanban/>}/>
+        <Route path="/editResume" element={<Kanban/>}/>
+        <Route path="/landing" element={<Kanban/>} />
+        
     </Routes>
 
 

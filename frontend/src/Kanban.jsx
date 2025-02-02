@@ -7,7 +7,7 @@ import Modal from "./modal";
 
 export const Kanban = () => {
   return (
-    <div className="h-full w-screen bg-neutral-900 text-neutral-50">
+    <div className="h-full w-screen bg-white text-[#1E88E5]">
       <Board />
     </div>
   );
@@ -32,7 +32,7 @@ const Board = () => {
       <Column
         title="Backlog"
         column="backlog"
-        headingColor="text-neutral-500"
+        headingColor="text-[#1E88E5]"
         cards={cards}
         setCards={setCards}
         openModal={openModal}
@@ -40,7 +40,7 @@ const Board = () => {
       <Column
         title="TODO"
         column="todo"
-        headingColor="text-yellow-200"
+        headingColor="text-[#1E88E5]"
         cards={cards}
         setCards={setCards}
         openModal={openModal}
@@ -48,7 +48,7 @@ const Board = () => {
       <Column
         title="In progress"
         column="doing"
-        headingColor="text-blue-200"
+        headingColor="text-[#1E88E5]"
         cards={cards}
         setCards={setCards}
         openModal={openModal}
@@ -56,12 +56,13 @@ const Board = () => {
       <Column
         title="Complete"
         column="done"
-        headingColor="text-emerald-200"
+        headingColor="text-[#1E88E5]"
         cards={cards}
         setCards={setCards}
         openModal={openModal}
       />
       <Modal isOpen={modal} modal_id={modal_id} setClose={closeModal}></Modal>
+      {/* <Button className="fixed bottom-3 right-14 text-blue-500"> </Button> */}
     </div>
   );
 };
@@ -172,7 +173,7 @@ const Column = ({ title, headingColor, cards, column, setCards, openModal }) => 
     <div className="shrink-0">
       <div className="mb-3 flex items-center justify-between">
         <h3 className={`font-medium ${headingColor}`}>{title}</h3>
-        <span className="rounded text-sm text-neutral-400">
+        <span className="rounded text-sm text-[#90CAF9]">
           {filteredCards.length}
         </span>
       </div>
@@ -181,14 +182,14 @@ const Column = ({ title, headingColor, cards, column, setCards, openModal }) => 
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         className={`h-full w-full transition-colors ${
-          active ? "bg-neutral-800/50" : "bg-neutral-800/0"
+          active ? "bg-[#E3F2FD]/50" : "bg-[#E3F2FD]/0"
         }`}
       >
         {filteredCards.map((c) => {
           return <Card setCards={setCards}key={c.id} {...c} handleDragStart={handleDragStart} openModal={openModal}/>;
         })}
         <DropIndicator beforeId={null} column={column} />
-        <AddCard column={column} setCards={setCards} />
+        {/* <AddCard column={column} setCards={setCards} /> */}
       </div>
     </div>
   );
@@ -203,7 +204,7 @@ const Card = ({ setCards, title, id, column,chips, handleDragStart, openModal })
         layoutId={id}
         draggable="true"
         onDragStart={(e) => handleDragStart(e, { title, id, column })}
-        className="cursor-grab rounded border border-neutral-700 bg-neutral-800 active:cursor-grabbing"
+        className="cursor-grab rounded border border-[#90CAF9] bg-white shadow-sm active:cursor-grabbing"
       >
        <CardItem cardId={id} title={title}  chips={chips} setCards={setCards} openModal={openModal}></CardItem>
       </motion.div>
@@ -216,7 +217,7 @@ const DropIndicator = ({ beforeId, column }) => {
     <div
       data-before={beforeId || "-1"}
       data-column={column}
-      className="my-0.5 h-0.5 w-full bg-violet-400 opacity-0"
+      className="my-0.5 h-0.5 w-full bg-[#1E88E5] opacity-0"
     />
   );
 };
@@ -248,8 +249,8 @@ const BurnBarrel = ({ setCards }) => {
       onDragLeave={handleDragLeave}
       className={`mt-10 grid h-56 w-56 shrink-0 place-content-center rounded border text-3xl ${
         active
-          ? "border-red-800 bg-red-800/20 text-red-500"
-          : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
+          ? "border-red-400 bg-red-50 text-red-500"
+          : "border-[#90CAF9] bg-[#E3F2FD] text-[#1E88E5]"
       }`}
     >
       {active ? <FaFire className="animate-bounce" /> : <FiTrash />}
@@ -285,18 +286,18 @@ const AddCard = ({ column, setCards }) => {
             onChange={(e) => setText(e.target.value)}
             autoFocus
             placeholder="Add new task..."
-            className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-50 placeholder-violet-300 focus:outline-0"
+            className="w-full rounded border border-[#90CAF9] bg-[#E3F2FD] p-3 text-sm text-[#1E88E5] placeholder-[#90CAF9] focus:outline-0"
           />
           <div className="mt-1.5 flex items-center justify-end gap-1.5">
             <button
               onClick={() => setAdding(false)}
-              className="px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
+              className="px-3 py-1.5 text-xs text-[#90CAF9] transition-colors hover:text-[#1E88E5]"
             >
               Close
             </button>
             <button
               type="submit"
-              className="flex items-center gap-1.5 rounded bg-neutral-50 px-3 py-1.5 text-xs text-neutral-950 transition-colors hover:bg-neutral-300"
+              className="flex items-center gap-1.5 rounded bg-[#1E88E5] px-3 py-1.5 text-xs text-white transition-colors hover:bg-[#1976D2]"
             >
               <span>Add</span>
               <FiPlus />
@@ -307,7 +308,7 @@ const AddCard = ({ column, setCards }) => {
         <motion.button
           layout
           onClick={() => setAdding(true)}
-          className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
+          className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs text-[#90CAF9] transition-colors hover:text-[#1E88E5]"
         >
           <span>Add card</span>
           <FiPlus />
