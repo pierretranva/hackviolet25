@@ -2,8 +2,11 @@
 import os
 import gridfs
 from pymongo import MongoClient
+from bson import ObjectId
 from webscrape import WebScrape  # Ensure webscrape.py is accessible in the same directory or Python path
 from ollama.llm_integration import LLMIntegration
+
+
 def main():
     # --- Setup MongoDB Connection ---
     # Use an environment variable for your MongoDB URI, or default to localhost for testing.
@@ -68,7 +71,7 @@ def main():
         "name": "Test Job Name",               
         "date": "2025-02-01",                   
         "chips": ["Python(bg-blue-500), FastAPI(bg-green-500)"], 
-        "markdown_file": markdown_file_content,
+        "markdown_file": markdown_file_id,
         "pdf_file_id": pdf_file_id
     }
 
@@ -80,6 +83,32 @@ def main():
     retrieved_doc = collection.find_one({"_id": insert_result.inserted_id})
     print("Retrieved Document from MongoDB:")
     print(retrieved_doc)
+
+def retrieve_markdown_file(markdown_file_id: ObjectId, db, output_path: str = "Retrieved_UpdatedResume.md") -> str:
+    #Retrieves the Markdown file stored in GridFS using its file ID and writes it to output_path.
+    fs = gridfs.GridFS(db)
+    try:
+        file_data = fs.get(markdown_file_id).read()
+        with open(output_path, "wb") as f:
+            f.write(file_data)
+        print(f"Markdown file retrieved and written to: {output_path}")
+        return output_path
+    except Exception as e:
+        print("Error retrieving markdown file:", e)
+        return None
+
+def retrieve_pdf_file(pdf_file_id: ObjectId, db, output_path: str = "Retrieved_Resume.pdf") -> str:
+    #Retrieves the PDF file stored in GridFS using its file ID and writes it to output_path.
+    fs = gridfs.GridFS(db)
+    try:
+        file_data = fs.get(pdf_file_id).read()
+        with open(output_path, "wb") as f:
+            f.write(file_data)
+        print(f"PDF file retrieved and written to: {output_path}")
+        return output_path
+    except Exception as e:
+        print("Error retrieving PDF file:", e)
+        return None
 
 if __name__ == "__main__":
     main()
