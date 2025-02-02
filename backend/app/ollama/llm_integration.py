@@ -142,7 +142,7 @@ if __name__ == "__main__":
         "of microservices architecture and scalable system design."
     )
     # Specify the path to the candidate's resume PDF
-    sample_resume_pdf = "Resume1.pdf"
+    sample_resume_pdf = "Resume.pdf"
     # Specify the output markdown file path
     output_markdown_file = "UpdatedResume.md"
     
